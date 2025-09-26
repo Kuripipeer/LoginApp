@@ -44,9 +44,6 @@ LoginApp/
 │
 └── build.gradle
 
-yaml
-Copiar código
-
 ---
 
 ## 🚀 Ejecución del proyecto
