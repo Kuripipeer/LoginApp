@@ -53,6 +53,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.loginapp.screens.LoginScreen
 import com.example.loginapp.ui.theme.Background
 import com.example.loginapp.ui.theme.TextFieldColor
 import com.example.loginapp.ui.theme.Lock
@@ -75,180 +76,13 @@ class MainActivity : ComponentActivity() {
                         startDestination = LoginScreenRoute
                     ){
                         composable <LoginScreenRoute> {
-                            Login(navController)
+                            LoginScreen(navController)
                         }
                         composable <SingUpScreenRoute> {
-                            Login(navController)
                         }
                     }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Login(navController: NavController) {
-    var email by remember {
-        mutableStateOf("")
-    }
-    var password by remember {
-        mutableStateOf("")
-    }
-    var showPassword by remember {
-        mutableStateOf(false)
-    }
-
-    Box (
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        // Background
-        Image(
-            painter = painterResource(R.drawable.background),
-            contentDescription = null,
-            modifier = Modifier
-                .fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            // Logo
-            Column (
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ){
-                Icon(
-                    imageVector = RocketTakeoff,
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier
-                        .size(120.dp)
-                )
-            }
-
-            // Parte del login
-            Column (
-                modifier = Modifier
-                    .weight(2f)
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(topStart = 60.dp))
-                    .background(Background)
-                    .padding(horizontal = 38.dp, vertical = 38.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ){
-                Column (
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ){
-                    Text(
-                        text = "Login",
-                        fontSize = 32.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-
-                    TextField(
-                        value = email,
-                        onValueChange = { email = it },
-                        label = { Text(text = "Email", color = Color.Black) },
-                        singleLine = true,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 40.dp, bottom = 28.dp)
-                            .height(80.dp),
-                        colors = TextFieldDefaults.colors(
-                            unfocusedIndicatorColor = Color.White,
-                            unfocusedContainerColor = TextFieldColor,
-                            focusedContainerColor = TextFieldColor,
-                            focusedIndicatorColor = Color.White,
-                            unfocusedTextColor = Color.LightGray,
-                            disabledIndicatorColor = Color.Transparent
-                        )
-                    )
-
-                    TextField(
-                        value = password,
-                        onValueChange = { password = it },
-                        label = { Text(text = "Password", color = Color.Black) },
-                        singleLine = true,
-                        trailingIcon = {
-                            IconButton(onClick = { showPassword = !showPassword }) {
-                                Icon(
-                                    imageVector = if (showPassword) Lock_open_right else Lock,
-                                    contentDescription = if (showPassword) "Ocultar" else "Mostrar"
-                                )
-                            }
-                        },
-                        visualTransformation = if (showPassword) VisualTransformation.None
-                        else PasswordVisualTransformation(),
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Password,
-                            imeAction = ImeAction.Done
-                        ),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(80.dp),
-                        colors = TextFieldDefaults.colors(
-                            unfocusedIndicatorColor = Color.White,
-                            unfocusedContainerColor = TextFieldColor,
-                            focusedContainerColor = TextFieldColor,
-                            focusedIndicatorColor = Color.White,
-                            unfocusedTextColor = Color.LightGray,
-                            disabledIndicatorColor = Color.Transparent
-                        )
-                    )
-
-                    Button(
-                        onClick = {},
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 28.dp)
-                            .height(60.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.Black,
-                            contentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(
-                            topStart = 16.dp,
-                            bottomStart = 16.dp,
-                            bottomEnd = 16.dp
-                        )
-                    ) {
-                        Text(
-                            text = "Login",
-                            fontSize = 18.sp
-                        )
-                    }
-                }
-                Column (
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ){
-                    Text(
-                        text = "Don't have any account? Sign Up",
-                        modifier = Modifier
-                            .clickable {
-                                navController.navigate(SingUpScreenRoute)
-                            }
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    LoginAppTheme {
-        Login(navController = rememberNavController())
     }
 }
