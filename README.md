@@ -44,8 +44,7 @@ LoginApp/
 ├── app/
 │   ├── src/main/java/com/example/loginapp/
 │   │   ├── components/       ← TextFields, Buttons, etc.
-│   │   ├── screens/          ← LoginScreen.kt, RegisterScreen.kt
-│   │   └── navigation/       ← NavGraph.kt (flujo entre pantallas)
+│   │   └── screens/          ← LoginScreen.kt, RegisterScreen.kt
 │   └── res/
 │       ├── drawable/         ← Fondos e íconos personalizados
 │       └── values/           ← Colores, temas y estilos
