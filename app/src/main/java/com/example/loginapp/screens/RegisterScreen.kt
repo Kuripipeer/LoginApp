@@ -7,20 +7,19 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,10 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -47,22 +43,32 @@ import com.example.loginapp.components.ActionButton
 import com.example.loginapp.components.HiddenTextField
 import com.example.loginapp.components.TextFieldPrefab
 import com.example.loginapp.ui.theme.Background
-import com.example.loginapp.ui.theme.Lock
-import com.example.loginapp.ui.theme.Lock_open_right
 import com.example.loginapp.ui.theme.LoginAppTheme
+import com.example.loginapp.ui.theme.LoginScreenRoute
 import com.example.loginapp.ui.theme.RocketTakeoff
 import com.example.loginapp.ui.theme.SingUpScreenRoute
-import com.example.loginapp.ui.theme.TextFieldColor
 
 @Composable
-fun LoginScreen(navController : NavController, innerPadding : PaddingValues) {
+fun RegisterScreen(navController : NavController, innerPadding : PaddingValues) {
+    var firstName by remember {
+        mutableStateOf("")
+    }
+    var lastName by remember {
+        mutableStateOf("")
+    }
     var email by remember {
         mutableStateOf("")
     }
     var password by remember {
         mutableStateOf("")
     }
+    var confirmPassword by remember {
+        mutableStateOf("")
+    }
     var showPassword by remember {
+        mutableStateOf(false)
+    }
+    var showConfirmPassword by remember {
         mutableStateOf(false)
     }
 
@@ -84,26 +90,37 @@ fun LoginScreen(navController : NavController, innerPadding : PaddingValues) {
                 .fillMaxSize()
         ) {
             // Logo
-            Column (
+            Row (
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalAlignment = Alignment.CenterVertically
             ){
-                Icon(
-                    imageVector = RocketTakeoff,
-                    contentDescription = null,
-                    tint = Color.White,
+                IconButton(
+                    onClick = { navController.popBackStack() },
+                    modifier = Modifier.size(48.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Volver",
+                        tint = Color.White
+                    )
+                }
+                Text(
+                    text = "Sign Up",
+                    fontSize = 40.sp,
+                    color = Color.White,
                     modifier = Modifier
-                        .size(120.dp)
+                        .fillMaxWidth()
+                        .padding(end = 40.dp),
+                    textAlign = TextAlign.Center
                 )
             }
 
             // Parte del login
             Column (
                 modifier = Modifier
-                    .weight(2f)
+                    .weight(6f)
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(topStart = 60.dp))
                     .background(Background)
@@ -116,14 +133,21 @@ fun LoginScreen(navController : NavController, innerPadding : PaddingValues) {
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ){
-                    Text(
-                        text = "Login",
-                        fontSize = 32.sp,
-                        modifier = Modifier
-                            .padding(bottom = 28.dp)
+                    // Email
+                    TextFieldPrefab(
+                        text = "First Name",
+                        value = firstName,
+                        onValueChange = { firstName = it },
+                        placeholder = "Juan Alfonso"
                     )
 
-                    // Email
+                    TextFieldPrefab(
+                        text = "Last Name",
+                        value = lastName,
+                        onValueChange = { lastName = it },
+                        placeholder = "Perez Lopez"
+                    )
+
                     TextFieldPrefab(
                         text = "Email",
                         value = email,
@@ -140,8 +164,17 @@ fun LoginScreen(navController : NavController, innerPadding : PaddingValues) {
                         onShowPasswordChange = { showPassword = !showPassword }
                     )
 
+                    //Confirm Password
+                    HiddenTextField(
+                        text = "Confirm Password",
+                        value = confirmPassword,
+                        onValueChange = { confirmPassword = it },
+                        showPassword = showConfirmPassword,
+                        onShowPasswordChange = { showConfirmPassword = !showConfirmPassword }
+                    )
+
                     // Login Button
-                    ActionButton("Login")
+                    ActionButton("Sign Up")
                 }
 
                 // Sing Up
@@ -151,10 +184,10 @@ fun LoginScreen(navController : NavController, innerPadding : PaddingValues) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ){
                     Text(
-                        text = "Don't have any account? Sign Up",
+                        text = "Already have any account? Sign In",
                         modifier = Modifier
                             .clickable {
-                                navController.navigate(SingUpScreenRoute)
+                                navController.popBackStack()
                             }
                     )
                 }
@@ -165,8 +198,8 @@ fun LoginScreen(navController : NavController, innerPadding : PaddingValues) {
 
 @Preview(showBackground = true)
 @Composable
-fun LoginPreview() {
+fun PreviewRegisterScreen() {
     LoginAppTheme {
-        LoginScreen(navController = rememberNavController(), innerPadding = PaddingValues() )
+        RegisterScreen(navController = rememberNavController(), innerPadding = PaddingValues() )
     }
 }

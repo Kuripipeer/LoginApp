@@ -21,7 +21,6 @@ fun ActionButton(
         onClick = {},
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 28.dp)
             .height(60.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.Black,
