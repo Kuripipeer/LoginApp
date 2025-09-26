@@ -69,7 +69,6 @@ fun LoginScreen(navController : NavController, innerPadding : PaddingValues) {
     Box (
         modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding)
     ) {
         // Background
         Image(
@@ -82,6 +81,7 @@ fun LoginScreen(navController : NavController, innerPadding : PaddingValues) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(innerPadding)
         ) {
             // Logo
             Column (
@@ -119,6 +119,7 @@ fun LoginScreen(navController : NavController, innerPadding : PaddingValues) {
                     Text(
                         text = "Login",
                         fontSize = 32.sp,
+                        color = Color.Black,
                         modifier = Modifier
                             .padding(bottom = 28.dp)
                     )
@@ -152,6 +153,7 @@ fun LoginScreen(navController : NavController, innerPadding : PaddingValues) {
                 ){
                     Text(
                         text = "Don't have any account? Sign Up",
+                        color = Color.Black,
                         modifier = Modifier
                             .clickable {
                                 navController.navigate(SingUpScreenRoute)

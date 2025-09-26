@@ -75,7 +75,6 @@ fun RegisterScreen(navController : NavController, innerPadding : PaddingValues) 
     Box (
         modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding)
     ) {
         // Background
         Image(
@@ -88,6 +87,7 @@ fun RegisterScreen(navController : NavController, innerPadding : PaddingValues) 
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(innerPadding)
         ) {
             // Logo
             Row (
@@ -185,6 +185,7 @@ fun RegisterScreen(navController : NavController, innerPadding : PaddingValues) 
                 ){
                     Text(
                         text = "Already have any account? Sign In",
+                        color = Color.Black,
                         modifier = Modifier
                             .clickable {
                                 navController.popBackStack()
